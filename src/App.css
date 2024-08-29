@@ -50,6 +50,7 @@ input {
   margin: 10px auto;
   padding: 8px;
   width: 200px;
+  background-color: grey;
 }
 
 button {
@@ -63,4 +64,43 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+h1 {
+  font-size: 3rem;
+  padding: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+p {
+  padding: 1rem;
+}
+
+section {
+  background-color: rgb(78, 77, 77);
+  border-radius: 10px;
+  margin-top: 3rem;
+}
+
+article {
+  border-top: solid 2px black;
+}
+
+span {
+  /* color: rgb(4, 70, 185); */
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.imgSection {
+  max-width: 90%;
+  display: block;
+  margin: 1rem auto;
 }
