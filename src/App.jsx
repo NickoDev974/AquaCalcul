@@ -39,6 +39,11 @@ function App() {
   const [paintHeight, setPaintHeight] = useState(0);
   const [surfaceToPaint, setSurfaceToPaint] = useState(null);
 
+  // États pour le calcul de la surface à peindre d'un cylindre
+  const [paintRadius, setPaintRadius] = useState(0);
+  const [paintCylHeight, setPaintCylHeight] = useState(0);
+  const [surfaceToPaintCylinder, setSurfaceToPaintCylinder] = useState(null);
+
   // Calcul du volume cubique
   const calculateCubeVolume = () => {
     const volume = (cubeLength * cubeWidth * cubeHeight) / 1000; // Conversion en litres
@@ -75,6 +80,14 @@ function App() {
     const sideSurface2 = 2 * (paintWidth * paintHeight); // 2 parois de largeur * hauteur
     const totalSurface = bottomSurface + sideSurface1 + sideSurface2;
     setSurfaceToPaint(totalSurface.toFixed(2));
+  };
+
+  // Calcul de la surface à peindre d'un cylindre
+  const calculateCylinderSurfaceToPaint = () => {
+    const lateralSurface = 2 * Math.PI * paintRadius * paintCylHeight; // Surface latérale
+    const baseSurface = 2 * Math.PI * Math.pow(paintRadius, 2); // Deux bases
+    const totalSurfaceCylinder = lateralSurface + baseSurface;
+    setSurfaceToPaintCylinder(totalSurfaceCylinder.toFixed(2));
   };
 
   return (
@@ -227,7 +240,7 @@ function App() {
         />
         <button onClick={calculateBache}>Calculer la taille de la bâche</button>
         {/* Affichage des dimensions réelles calculées */}
-        {bacheLength && bacheWidth && bacheHeight && (
+        {bacheLength > 0 && bacheWidth > 0 && bacheHeight > 0 && (
           <p>
             La taille réelle de la bâche nécessaire est de{" "}
             {(
@@ -255,40 +268,77 @@ function App() {
       </section>
       {/* Section calcul de la surface à peindre */}
       <section>
-        <h2>Calcul de la surface à peindre</h2>
-        <p>Calculez la surface des 5 faces à peindre d'un bassin cubique.</p>
-        <img src={cemaqua} alt="Pose de cemaqua" className="imgSection" />
+        <article>
+          <h2>Calcul de la surface à peindre (Cube)</h2>
+          <p>Calculez la surface des 5 faces à peindre d'un bassin cubique.</p>
+          <img src={cemaqua} alt="Pose de cemaqua" className="imgSection" />
 
-        <label htmlFor="paintLength">Longueur (m)</label>
-        <input
-          id="paintLength"
-          type="number"
-          value={paintLength}
-          onChange={(e) => setPaintLength(e.target.value)}
-        />
-        <label htmlFor="paintWidth">Largeur (m)</label>
-        <input
-          id="paintWidth"
-          type="number"
-          value={paintWidth}
-          onChange={(e) => setPaintWidth(e.target.value)}
-        />
-        <label htmlFor="paintHeight">Hauteur (m)</label>
-        <input
-          id="paintHeight"
-          type="number"
-          value={paintHeight}
-          onChange={(e) => setPaintHeight(e.target.value)}
-        />
-        <button onClick={calculateSurfaceToPaint}>
-          Calculer la surface à peindre
-        </button>
+          <label htmlFor="paintLength">Longueur (m)</label>
+          <input
+            id="paintLength"
+            type="number"
+            value={paintLength}
+            onChange={(e) => setPaintLength(e.target.value)}
+          />
+          <label htmlFor="paintWidth">Largeur (m)</label>
+          <input
+            id="paintWidth"
+            type="number"
+            value={paintWidth}
+            onChange={(e) => setPaintWidth(e.target.value)}
+          />
+          <label htmlFor="paintHeight">Hauteur (m)</label>
+          <input
+            id="paintHeight"
+            type="number"
+            value={paintHeight}
+            onChange={(e) => setPaintHeight(e.target.value)}
+          />
+          <button onClick={calculateSurfaceToPaint}>
+            Calculer la surface à peindre
+          </button>
 
-        {surfaceToPaint && (
+          {surfaceToPaint && (
+            <p>
+              La surface totale à peindre est de{" "}
+              <span>{surfaceToPaint} m²</span>.
+            </p>
+          )}
+        </article>
+        {/* Section calcul de la surface à peindre pour un cylindre */}
+        <article>
+          <h2>Calcul de la surface à peindre (Cylindre)</h2>
           <p>
-            La surface totale à peindre est de <span>{surfaceToPaint} m²</span>.
+            Calculez la surface extérieure d'un aquarium cylindrique à peindre.
           </p>
-        )}
+
+          <label htmlFor="paintRadius">Rayon (m)</label>
+          <input
+            id="paintRadius"
+            type="number"
+            value={paintRadius}
+            onChange={(e) => setPaintRadius(e.target.value)}
+          />
+
+          <label htmlFor="paintCylHeight">Hauteur (m)</label>
+          <input
+            id="paintCylHeight"
+            type="number"
+            value={paintCylHeight}
+            onChange={(e) => setPaintCylHeight(e.target.value)}
+          />
+
+          <button onClick={calculateCylinderSurfaceToPaint}>
+            Calculer la surface à peindre
+          </button>
+
+          {surfaceToPaintCylinder && (
+            <p>
+              La surface totale à peindre est de{" "}
+              <span>{surfaceToPaintCylinder} m²</span>.
+            </p>
+          )}
+        </article>
       </section>
     </>
   );
