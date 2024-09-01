@@ -78,10 +78,12 @@ h1 {
 h2 {
   font-size: 2rem;
   font-weight: bold;
+  text-shadow: black 5px 5px 5px;
 }
 
 h3 {
   font-size: 1.5rem;
+  text-shadow: black 5px 5px 5px;
 }
 p {
   padding: 1rem;
@@ -91,7 +93,7 @@ section {
   background-color: rgb(78, 77, 77);
   border-radius: 10px;
   margin-top: 3rem;
-  box-shadow: rgb(255, 255, 255) 1px 5px 30px;
+  /* box-shadow: rgb(255, 255, 255) 1px 5px 30px; */
 }
 
 article {
