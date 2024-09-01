@@ -279,10 +279,11 @@ function App() {
       </section>
       {/* Section calcul de la surface à peindre */}
       <section>
+        <h2>Calcul de la surface à peindre pour Étanchéité</h2>
+        <img src={cemaqua} alt="Pose de cemaqua" className="imgSection" />
         <article>
-          <h2>Calcul de la surface à peindre (Cube)</h2>
+          <h3>Calcul de la surface à peindre (Cube)</h3>
           <p>Calculez la surface des 5 faces à peindre d'un bassin cubique.</p>
-          <img src={cemaqua} alt="Pose de cemaqua" className="imgSection" />
 
           <label htmlFor="paintLength">Longueur (m)</label>
           <input
@@ -321,7 +322,7 @@ function App() {
         </article>
         {/* Section calcul de la surface à peindre pour un cylindre */}
         <article>
-          <h2>Calcul de la surface à peindre (Cylindre)</h2>
+          <h3>Calcul de la surface à peindre (Cylindre)</h3>
           <p>
             Calculez la surface extérieure d'un aquarium cylindrique à peindre.
           </p>
