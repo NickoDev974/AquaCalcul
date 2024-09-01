@@ -107,3 +107,8 @@ span {
   display: block;
   margin: 1rem auto;
 }
+
+::placeholder {
+  color: white;
+  opacity: 0.6;
+}

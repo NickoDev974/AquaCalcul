@@ -10,38 +10,38 @@ import cemaqua from "./assets/picture/cemaqua.png";
 
 function App() {
   // États pour le calcul du volume cubique
-  const [cubeLength, setCubeLength] = useState(0);
-  const [cubeWidth, setCubeWidth] = useState(0);
-  const [cubeHeight, setCubeHeight] = useState(0);
+  const [cubeLength, setCubeLength] = useState("");
+  const [cubeWidth, setCubeWidth] = useState("");
+  const [cubeHeight, setCubeHeight] = useState("");
   const [volumeCube, setVolumeCube] = useState(null);
 
   // États pour le calcul du volume cylindrique
-  const [radius, setRadius] = useState(0);
-  const [heightCyl, setHeightCyl] = useState(0);
+  const [radius, setRadius] = useState("");
+  const [heightCyl, setHeightCyl] = useState("");
   const [volumeCylinder, setVolumeCylinder] = useState(null);
 
   // États pour le calcul du traitement
-  const [treatmentQuantity, setTreatmentQuantity] = useState(0);
-  const [treatmentVolume, setTreatmentVolume] = useState(0);
-  const [waterVolume, setWaterVolume] = useState(0);
+  const [treatmentQuantity, setTreatmentQuantity] = useState("");
+  const [treatmentVolume, setTreatmentVolume] = useState("");
+  const [waterVolume, setWaterVolume] = useState("");
   const [requiredTreatment, setRequiredTreatment] = useState(null);
 
   // États pour le calcul de la bâche
-  const [bacheLength, setBacheLength] = useState(0);
-  const [bacheWidth, setBacheWidth] = useState(0);
-  const [bacheHeight, setBacheHeight] = useState(0);
+  const [bacheLength, setBacheLength] = useState("");
+  const [bacheWidth, setBacheWidth] = useState("");
+  const [bacheHeight, setBacheHeight] = useState("");
   const [bacheRealWidth, setBacheRealWidth] = useState(null);
   const [bacheRealLength, setBacheRealLength] = useState(null);
 
   // Surface à peindre
-  const [paintLength, setPaintLength] = useState(0);
-  const [paintWidth, setPaintWidth] = useState(0);
-  const [paintHeight, setPaintHeight] = useState(0);
+  const [paintLength, setPaintLength] = useState("");
+  const [paintWidth, setPaintWidth] = useState("");
+  const [paintHeight, setPaintHeight] = useState("");
   const [surfaceToPaint, setSurfaceToPaint] = useState(null);
 
   // États pour le calcul de la surface à peindre d'un cylindre
-  const [paintRadius, setPaintRadius] = useState(0);
-  const [paintCylHeight, setPaintCylHeight] = useState(0);
+  const [paintRadius, setPaintRadius] = useState("");
+  const [paintCylHeight, setPaintCylHeight] = useState("");
   const [surfaceToPaintCylinder, setSurfaceToPaintCylinder] = useState(null);
 
   // Calcul du volume cubique
@@ -113,6 +113,7 @@ function App() {
           <input
             id="cubeLength"
             type="number"
+            placeholder="Longueur"
             value={cubeLength}
             onChange={(e) => setCubeLength(e.target.value)}
           />
@@ -120,6 +121,7 @@ function App() {
           <input
             id="cubeWidth"
             type="number"
+            placeholder="largeur"
             value={cubeWidth}
             onChange={(e) => setCubeWidth(e.target.value)}
           />
@@ -127,6 +129,7 @@ function App() {
           <input
             id="cubeHeight"
             type="number"
+            placeholder="Hauteur"
             value={cubeHeight}
             onChange={(e) => setCubeHeight(e.target.value)}
           />
@@ -150,6 +153,7 @@ function App() {
           <input
             id="radius"
             type="number"
+            placeholder="Rayon"
             value={radius}
             onChange={(e) => setRadius(e.target.value)}
           />
@@ -157,6 +161,7 @@ function App() {
           <input
             id="heightCyl"
             type="number"
+            placeholder="Hauteur"
             value={heightCyl}
             onChange={(e) => setHeightCyl(e.target.value)}
           />
@@ -182,6 +187,7 @@ function App() {
         <input
           id="treatmentQuantity"
           type="number"
+          placeholder="Produit"
           value={treatmentQuantity}
           onChange={(e) => setTreatmentQuantity(e.target.value)}
         />
@@ -191,6 +197,7 @@ function App() {
         <input
           id="treatmentVolume"
           type="number"
+          placeholder="Pour volume eau"
           value={treatmentVolume}
           onChange={(e) => setTreatmentVolume(e.target.value)}
         />
@@ -198,6 +205,7 @@ function App() {
         <input
           id="waterVolume"
           type="number"
+          placeholder="Volume a Traiter"
           value={waterVolume}
           onChange={(e) => setWaterVolume(e.target.value)}
         />
@@ -221,6 +229,7 @@ function App() {
         <input
           id="bacheLength"
           type="number"
+          placeholder="Longueur"
           value={bacheLength}
           onChange={(e) => setBacheLength(e.target.value)}
         />
@@ -228,6 +237,7 @@ function App() {
         <input
           id="bacheWidth"
           type="number"
+          placeholder="Largeur"
           value={bacheWidth}
           onChange={(e) => setBacheWidth(e.target.value)}
         />
@@ -235,6 +245,7 @@ function App() {
         <input
           id="bacheHeight"
           type="number"
+          placeholder="Hauteur"
           value={bacheHeight}
           onChange={(e) => setBacheHeight(e.target.value)}
         />
@@ -277,6 +288,7 @@ function App() {
           <input
             id="paintLength"
             type="number"
+            placeholder="Longueur"
             value={paintLength}
             onChange={(e) => setPaintLength(e.target.value)}
           />
@@ -284,6 +296,7 @@ function App() {
           <input
             id="paintWidth"
             type="number"
+            placeholder="Largeur"
             value={paintWidth}
             onChange={(e) => setPaintWidth(e.target.value)}
           />
@@ -291,6 +304,7 @@ function App() {
           <input
             id="paintHeight"
             type="number"
+            placeholder="Hauteur"
             value={paintHeight}
             onChange={(e) => setPaintHeight(e.target.value)}
           />
@@ -316,6 +330,7 @@ function App() {
           <input
             id="paintRadius"
             type="number"
+            placeholder="Rayon"
             value={paintRadius}
             onChange={(e) => setPaintRadius(e.target.value)}
           />
@@ -324,6 +339,7 @@ function App() {
           <input
             id="paintCylHeight"
             type="number"
+            placeholder="Hauteur"
             value={paintCylHeight}
             onChange={(e) => setPaintCylHeight(e.target.value)}
           />
