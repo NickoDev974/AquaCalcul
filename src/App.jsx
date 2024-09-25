@@ -44,6 +44,13 @@ function App() {
   const [paintCylHeight, setPaintCylHeight] = useState("");
   const [surfaceToPaintCylinder, setSurfaceToPaintCylinder] = useState(null);
 
+  // États pour le calcul du prix de revient à la Réunion
+  const [totalInvoiceCost, setTotalInvoiceCost] = useState("");
+  const [totalFishCost, setTotalFishCost] = useState("");
+  const [unitPriceFish, setUnitPriceFish] = useState("");
+  const [fishCostReunion, setFishCostReunion] = useState(null);
+  const [minSellingPrice, setMinSellingPrice] = useState(null);
+
   // Calcul du volume cubique
   const calculateCubeVolume = () => {
     const volume = (cubeLength * cubeWidth * cubeHeight) / 1000; // Conversion en litres
@@ -88,6 +95,15 @@ function App() {
     const baseSurface = 2 * Math.PI * Math.pow(paintRadius, 2); // Deux bases
     const totalSurfaceCylinder = lateralSurface + baseSurface;
     setSurfaceToPaintCylinder(totalSurfaceCylinder.toFixed(2));
+  };
+
+  // Calcul du prix de revient d'un poisson à la Réunion
+  const calculateFishCostReunion = () => {
+    const result = totalInvoiceCost / (totalFishCost / unitPriceFish);
+    setFishCostReunion(result.toFixed(2));
+    // Calcul du prix de vente minimum (prix de revient * 3)
+    const sellingPrice = result * 3;
+    setMinSellingPrice(sellingPrice.toFixed(2));
   };
 
   return (
@@ -356,6 +372,57 @@ function App() {
             </p>
           )}
         </article>
+      </section>
+      {/* Section calcul du prix de revient à la Réunion */}
+      <section>
+        <h2>Calcul du prix de revient à la Réunion</h2>
+        <p>
+          Calculez le coût d'un poisson rendu Réunion à partir des coûts de
+          facture et d'achat.
+        </p>
+
+        <label htmlFor="totalInvoiceCost">Coût total de la facture (€)</label>
+        <input
+          id="totalInvoiceCost"
+          type="number"
+          placeholder="Coût total de la facture"
+          value={totalInvoiceCost}
+          onChange={(e) => setTotalInvoiceCost(e.target.value)}
+        />
+
+        <label htmlFor="totalFishCost">Coût total des poissons (€)</label>
+        <input
+          id="totalFishCost"
+          type="number"
+          placeholder="Coût total des poissons"
+          value={totalFishCost}
+          onChange={(e) => setTotalFishCost(e.target.value)}
+        />
+
+        <label htmlFor="unitPriceFish">Prix unitaire d'un poisson (€)</label>
+        <input
+          id="unitPriceFish"
+          type="number"
+          placeholder="Prix unitaire"
+          value={unitPriceFish}
+          onChange={(e) => setUnitPriceFish(e.target.value)}
+        />
+
+        <button onClick={calculateFishCostReunion}>
+          Calculer le prix de revient
+        </button>
+
+        {fishCostReunion && (
+          <p>
+            Le prix de revient d'un poisson à la Réunion est de{" "}
+            <span>{fishCostReunion} €</span>.
+          </p>
+        )}
+        {minSellingPrice && (
+          <p>
+            Le prix de vente minimum est de <span>{minSellingPrice} €</span>.
+          </p>
+        )}
       </section>
     </>
   );
