@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 
-//image import
+// Image imports
 import aquaCube from "./assets/picture/aqua-cube.jpg";
 import cilinderCube from "./assets/picture/volume_cylindre.png";
 import medoc from "./assets/picture/calculs-medocs.jpg";
@@ -71,13 +71,34 @@ function App() {
 
   // Calcul de la bâche pour un bassin cubique
   const calculateBache = () => {
-    const bacheL = 1 + parseFloat(bacheLength) + parseFloat(bacheHeight) * 2;
-    const bacheW = 1 + parseFloat(bacheWidth) + parseFloat(bacheHeight) * 2;
+    const bacheL1 = 1 + parseFloat(bacheLength) + parseFloat(bacheHeight) * 2;
+    const bacheW1 = 1 + parseFloat(bacheWidth) + parseFloat(bacheHeight) * 2;
+
+    // Inverser les dimensions pour vérifier l'autre orientation
+    const bacheL2 = 1 + parseFloat(bacheWidth) + parseFloat(bacheHeight) * 2;
+    const bacheW2 = 1 + parseFloat(bacheLength) + parseFloat(bacheHeight) * 2;
+
     const availableWidths = [4, 6, 8, 10];
-    const selectedWidth = availableWidths.find((w) => w >= bacheW);
-    const selectedLength = Math.ceil(bacheL);
-    setBacheRealWidth(selectedWidth);
-    setBacheRealLength(selectedLength);
+
+    // Calculer les dimensions réelles pour les deux orientations
+    const selectedWidth1 = availableWidths.find((w) => w >= bacheW1);
+    const selectedLength1 = Math.ceil(bacheL1);
+
+    const selectedWidth2 = availableWidths.find((w) => w >= bacheW2);
+    const selectedLength2 = Math.ceil(bacheL2);
+
+    // Calculer les surfaces pour les deux orientations
+    const surface1 = selectedWidth1 * selectedLength1;
+    const surface2 = selectedWidth2 * selectedLength2;
+
+    // Choisir l'orientation avec la plus petite surface
+    if (surface1 < surface2) {
+      setBacheRealWidth(selectedWidth1);
+      setBacheRealLength(selectedLength1);
+    } else {
+      setBacheRealWidth(selectedWidth2);
+      setBacheRealLength(selectedLength2);
+    }
   };
 
   // Calcul de la surface à peindre
@@ -374,7 +395,7 @@ function App() {
         </article>
       </section>
       {/* Section calcul du prix de revient à la Réunion */}
-      <section>
+      {/* <section>
         <h2>Calcul du prix de revient à la Réunion</h2>
         <p>
           Calculez le coût d'un poisson rendu Réunion à partir des coûts de
@@ -423,7 +444,7 @@ function App() {
             Le prix de vente minimum est de <span>{minSellingPrice} €</span>.
           </p>
         )}
-      </section>
+      </section> */}
     </>
   );
 }
