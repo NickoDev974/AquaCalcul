@@ -38,6 +38,8 @@ function App() {
   const [paintWidth, setPaintWidth] = useState("");
   const [paintHeight, setPaintHeight] = useState("");
   const [surfaceToPaint, setSurfaceToPaint] = useState(null);
+  const [paintPots12kg, setPaintPots12kg] = useState(null);
+  const [paintPots25kg, setPaintPots25kg] = useState(null);
 
   // États pour le calcul de la surface à peindre d'un cylindre
   const [paintRadius, setPaintRadius] = useState("");
@@ -104,18 +106,82 @@ function App() {
   // Calcul de la surface à peindre
   const calculateSurfaceToPaint = () => {
     const bottomSurface = paintLength * paintWidth;
-    const sideSurface1 = 2 * (paintLength * paintHeight); // 2 parois de longueur * hauteur
-    const sideSurface2 = 2 * (paintWidth * paintHeight); // 2 parois de largeur * hauteur
+    const sideSurface1 = 2 * (paintLength * paintHeight);
+    const sideSurface2 = 2 * (paintWidth * paintHeight);
     const totalSurface = bottomSurface + sideSurface1 + sideSurface2;
     setSurfaceToPaint(totalSurface.toFixed(2));
+
+    const bigPotCoverage = 10;
+    const smallPotCoverage = 5;
+
+    let minTotalPots = Infinity;
+    let bestBigPots = 0;
+    let bestSmallPots = 0;
+
+    // Tester toutes les combinaisons possibles de gros pots (0 à max)
+    const maxBigPots = Math.ceil(totalSurface / bigPotCoverage);
+    for (let bigPots = 0; bigPots <= maxBigPots; bigPots++) {
+      const remainingSurface = totalSurface - bigPots * bigPotCoverage;
+      if (remainingSurface < 0) {
+        // surface couverte, petits pots non nécessaires
+        if (bigPots < minTotalPots) {
+          minTotalPots = bigPots;
+          bestBigPots = bigPots;
+          bestSmallPots = 0;
+        }
+        continue;
+      }
+      const smallPots = Math.ceil(remainingSurface / smallPotCoverage);
+      const totalPots = bigPots + smallPots;
+
+      if (totalPots < minTotalPots) {
+        minTotalPots = totalPots;
+        bestBigPots = bigPots;
+        bestSmallPots = smallPots;
+      }
+    }
+
+    setPaintPots25kg(bestBigPots);
+    setPaintPots12kg(bestSmallPots);
   };
 
-  // Calcul de la surface à peindre d'un cylindre
+  // Calcul de la surface à peindre d'un cylindre (optimisé avec répartition des pots)
   const calculateCylinderSurfaceToPaint = () => {
     const lateralSurface = 2 * Math.PI * paintRadius * paintCylHeight; // Surface latérale
     const baseSurface = 2 * Math.PI * Math.pow(paintRadius, 2); // Deux bases
     const totalSurfaceCylinder = lateralSurface + baseSurface;
     setSurfaceToPaintCylinder(totalSurfaceCylinder.toFixed(2));
+
+    const bigPotCoverage = 10;
+    const smallPotCoverage = 5;
+
+    let minTotalPots = Infinity;
+    let bestBigPots = 0;
+    let bestSmallPots = 0;
+
+    const maxBigPots = Math.ceil(totalSurfaceCylinder / bigPotCoverage);
+    for (let bigPots = 0; bigPots <= maxBigPots; bigPots++) {
+      const remainingSurface = totalSurfaceCylinder - bigPots * bigPotCoverage;
+      if (remainingSurface < 0) {
+        if (bigPots < minTotalPots) {
+          minTotalPots = bigPots;
+          bestBigPots = bigPots;
+          bestSmallPots = 0;
+        }
+        continue;
+      }
+      const smallPots = Math.ceil(remainingSurface / smallPotCoverage);
+      const totalPots = bigPots + smallPots;
+
+      if (totalPots < minTotalPots) {
+        minTotalPots = totalPots;
+        bestBigPots = bigPots;
+        bestSmallPots = smallPots;
+      }
+    }
+
+    setPaintPots25kg(bestBigPots);
+    setPaintPots12kg(bestSmallPots);
   };
 
   // Calcul du prix de revient d'un poisson à la Réunion
@@ -356,6 +422,13 @@ function App() {
               <span>{surfaceToPaint} m²</span>.
             </p>
           )}
+          {paintPots25kg !== null && paintPots12kg !== null && (
+            <p>
+              Pour cette surface et realiser les deux couches, vous aurez besoin
+              de <strong>{paintPots25kg} pot(s) de 25kg</strong> (10m² chacun)
+              et <strong>{paintPots12kg} pot(s) de 12kg</strong> (5m² chacun).
+            </p>
+          )}
         </article>
         {/* Section calcul de la surface à peindre pour un cylindre */}
         <article>
@@ -390,6 +463,13 @@ function App() {
             <p>
               La surface totale à peindre est de{" "}
               <span>{surfaceToPaintCylinder} m²</span>.
+            </p>
+          )}
+          {paintPots25kg !== null && paintPots12kg !== null && (
+            <p>
+              Pour cette surface et réaliser les deux couches, vous aurez besoin
+              de <strong>{paintPots25kg} pot(s) de 25kg</strong> (10m² chacun)
+              et <strong>{paintPots12kg} pot(s) de 12kg</strong> (5m² chacun).
             </p>
           )}
         </article>
